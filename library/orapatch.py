@@ -8,7 +8,7 @@
     @last_update: 04.02.2019
 
     File name:          orapatch.py
-    Version:            1.4.1
+    Version:            1.4.2
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -1135,6 +1135,11 @@ class PatchProcess(object):
     def stop_services_from_oh(self):
 
         global g_instance_list
+        global g_listener_list
+
+        if not g_instance_list and not g_listener_list:
+            logger("No instances or listeners found to stop.")
+            return
 
         # Stop active listeners
         for item in g_listener_list:
@@ -1185,6 +1190,11 @@ class PatchProcess(object):
         #     return
 
         global g_instance_list
+        global g_listener_list
+
+        if not g_instance_list and not g_listener_list:
+            logger("No instances or listeners found to start.")
+            return
 
         # Start previously stopped ASM instances
         for item in g_instance_list:
@@ -1483,8 +1493,8 @@ class PatchProcess(object):
                     else:
                         logger("Instance ["+v_db_unique_name+"] is not in the specified list.")
 
-            logger("==========================")
-            logger("Database details:")
+            logger("==========================", p_notime = True)
+            logger("Database details:", p_notime = True)
             logger("Database name: " + str(v_db_name), p_notime = True)
             logger("Database unique name: " + str(v_db_unique_name), p_notime = True)
             logger("Database version: " + str(v_db_version), p_notime = True)
@@ -1818,20 +1828,22 @@ class PatchProcess(object):
         logger("==============================================",True)
         self.build_instance_list()
 
-        logger("==============================================",True)
-        logger(g_function + " => BUILD_LISTENER_LIST",True)
-        logger("==============================================",True)
-        self.build_listener_list(self.oracle_home)
+        if g_function != "PATCH_DB" and g_function != "PATCH_DB_OJVM":
+            logger("==============================================",True)
+            logger(g_function + " => BUILD_LISTENER_LIST",True)
+            logger("==============================================",True)
+            self.build_listener_list(self.oracle_home)
 
         logger("==============================================",True)
         logger(g_function + " => STOP_SERVICES_FROM_OH",True)
         logger("==============================================",True)
         self.stop_services_from_oh()
 
-        logger("==============================================",True)
-        logger(g_function + " => CHECK_RUNNING_SERVICES_FROM_OH",True)
-        logger("==============================================",True)
-        self.check_running_services_from_oh();
+        if g_function != "PATCH_DB" and g_function != "PATCH_DB_OJVM":
+            logger("==============================================",True)
+            logger(g_function + " => CHECK_RUNNING_SERVICES_FROM_OH",True)
+            logger("==============================================",True)
+            self.check_running_services_from_oh();
 
 
     def patchprocess_post_patch(self):

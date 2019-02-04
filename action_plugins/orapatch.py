@@ -7,7 +7,7 @@
     @last_update: 04.02.2019
 
     File name:          orapatch.py
-    Version:            1.4.1
+    Version:            1.4.2
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
