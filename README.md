@@ -6,8 +6,8 @@ Automation for Oracle software binaries patching
 Author: Ivica Arsov<br/>
 Contact: https://blog.iarsov.com/contact
 
-Last module version: 1.4.0<br/>
-Last update: 01.02.2019
+Last module version: 1.4.1<br/>
+Last update: 04.02.2019
 
 The main purpose of the module is to automate the patching process of Oracle database and grid infrastructure binaries with PSUs, BPs, RUs patches released by Oracle.<br/>
 <br/>
