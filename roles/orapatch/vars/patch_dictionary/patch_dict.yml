@@ -1,0 +1,325 @@
+#
+#    @author: Ivica Arsov
+#    @contact: https://blog.iarsov.com/contact
+#
+
+# Defined Oracle patches
+patch_dict:
+
+  #""" 18.5.0.0.0 """
+  28822489:
+    patch_proactive_bp_id:
+    patch_gi_id: 
+    patch_db_id: 28822489
+    patch_ocw_id: 
+    patch_ojvm_id: 
+    patch_acfs_id: 
+    patch_dbwlm_id: 
+    patch_dir: p28822489_180000_Linux-x86-64
+    file: p28822489_180000_Linux-x86-64.zip
+    only_oh: False
+    desc: "Database Release Update 18.5.0"
+
+  #""" 12.2.0.1 """
+  28980109:
+    patch_proactive_bp_id:
+    patch_gi_id: 28828733
+    patch_db_id: 28822515
+    patch_ocw_id: 28870605
+    patch_ojvm_id: 28790651
+    patch_acfs_id: 28864846
+    patch_dbwlm_id: 26839277
+    patch_dir: 28980109
+    file: p28980109_122010_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo Of OJVM Update Component 12.2.0.1.190115 + GI Update 12.2.0.1.190115"
+
+  27726454:
+    patch_proactive_bp_id:
+    patch_gi_id: 27468969
+    patch_db_id: 27674384
+    patch_ocw_id: 27464465
+    patch_ojvm_id: 27475613
+    patch_acfs_id: 27458609
+    patch_dbwlm_id: 26839277
+    patch_dir: 27726454
+    file: p27726454_122010_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo Of OJVM Update Component 12.2.0.1.180417 + GI Update 12.2.0.1.180417"
+
+  27010695:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 27105253
+    patch_ocw_id:
+    patch_ojvm_id: 27001739
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 27010695
+    file: p27010695_122010_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM RU COMPONENT 12.2.0.1.171017 + DBRU 12.2.0.1.171017"
+
+  26636004:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 26710464
+    patch_ocw_id:
+    patch_ojvm_id: 26635944
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 26636004
+    file: p26636004_122010_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM RU COMPONENT 12.2.0.1.171017 + DBRU 12.2.0.1.171017"
+
+  26550314:
+    patch_proactive_bp_id:
+    patch_gi_id: 26610291
+    patch_db_id: 26609817
+    patch_ocw_id: 26609966
+    patch_ojvm_id: 25811364
+    patch_acfs_id: 25586399
+    patch_dbwlm_id:
+    patch_dir: 26550314
+    file: p26550314_122010_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM RU COMPONENT 12.2.0.1.170718 + GIRU 12.2.0.1.170814"
+
+  26550033:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 26609817
+    patch_ocw_id:
+    patch_ojvm_id: 25811364
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 26550033
+    file: p26550033_122010_Solaris86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM RU COMPONENT 12.2.0.1.170718 + DBRU 12.2.0.1.170814"
+
+  26129945:
+    patch_proactive_bp_id: 26129945
+    patch_gi_id:
+    patch_db_id: 25983138
+    patch_ocw_id: 26187629
+    patch_ojvm_id:
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 26129945
+    file: p26129945_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "DATABASE PROACTIVE BUNDLE PATCH 12.2.0.1.170620"
+
+  #""" 12.1.0.2 """
+  27486326:
+    patch_proactive_bp_id: 27486326
+    patch_gi_id:
+    patch_db_id: 27338029
+    patch_ocw_id: 27338020
+    patch_ojvm_id: 
+    patch_acfs_id: 27338013
+    patch_dbwlm_id: 26983807
+    patch_dir: 27486326
+    file: p27486326_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "Database Proactive Bundle Patch 12.1.0.2.180417"
+
+  27010941:
+    patch_proactive_bp_id: 27010930
+    patch_gi_id:
+    patch_db_id: 26925263
+    patch_ocw_id: 26925218
+    patch_ojvm_id: 27001733
+    patch_acfs_id: 26910974
+    patch_dbwlm_id: 26983807
+    patch_dir: 27010941
+    file: p27010941_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 12.1.0.2.180116 DB PSU + DB BP 12.1.0.2.180116"
+
+  26550339:
+    patch_proactive_bp_id:
+    patch_gi_id: 26610308
+    patch_db_id: 26609783
+    patch_ocw_id: 26609945
+    patch_ojvm_id: 26027162
+    patch_acfs_id: 25869830
+    patch_dbwlm_id: 21436941
+    patch_dir: 26550339
+    file: p26550339_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 12.1.0.2.170718 DBPSU + GIPSU 12.1.0.2.170814"
+
+  26030704:
+    patch_proactive_bp_id:
+    patch_gi_id: 25901062
+    patch_db_id: 25755742
+    patch_ocw_id: 25869825
+    patch_ojvm_id: 26027162
+    patch_acfs_id: 25869830
+    patch_dbwlm_id: 21436941
+    patch_dir: 26030704
+    file: p26030704_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo of OJVM Component 12.1.0.2.170718 DB PSU + GI PSU 12.1.0.2.170718"
+
+  25901062:
+    patch_proactive_bp_id:
+    patch_gi_id: 25901062
+    patch_db_id: 25755742
+    patch_ocw_id: 25869825
+    patch_ojvm_id:
+    patch_acfs_id: 25869830
+    patch_dbwlm_id: 21436941
+    patch_dir: 25901062
+    file: p25901062_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "Oracle Grid Infrastructure Patch Set Update 12.1.0.2.170718 (Jul2017)"
+
+  26030586:
+    patch_proactive_bp_id: 26022196
+    patch_gi_id:
+    patch_db_id: 25869760
+    patch_ocw_id: 25869825
+    patch_ojvm_id: 26027162
+    patch_acfs_id: 25869830
+    patch_dbwlm_id: 21436941
+    patch_dir: 26030586
+    file: p26030586_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo OJVM PSU 12.1.0.2.170718 and database Proactive BP 12.1.0.2.170718"
+
+  26550023:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 26609783
+    patch_ocw_id:
+    patch_ojvm_id: 26027162
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 26550023
+    file: p26550023_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 12.1.0.2.170718 DBPSU + DBPSU 12.1.0.2.170814"
+
+  25901056:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 25755742
+    patch_ocw_id:
+    patch_ojvm_id: 26027162
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 25901056
+    file: p25901056_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo OJVM PSU 12.1.0.2.170718 and Database PSU 12.1.0.2.170718"
+
+  25437795:
+    patch_proactive_bp_id: 25433352
+    patch_gi_id:
+    patch_db_id: 25397136
+    patch_ocw_id: 25481150
+    patch_ojvm_id: 25437695
+    patch_acfs_id: 25363750
+    patch_dbwlm_id: 21436941
+    patch_dir: 25437795
+    file: p25437795_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 12.1.0.2.170418 DB PSU + DB BP 12.1.0.2.170418"
+
+  25433980:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 25171037
+    patch_ocw_id:
+    patch_ojvm_id: 25437695
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 25433980
+    file: p25433980_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO of OJVM Component 12.1.0.2.170418 DB PSU + DB PSU 12.1.0.2.170418"
+
+  24917987:
+    patch_proactive_bp_id: 24968615
+    patch_gi_id:
+    patch_db_id: 24732088
+    patch_ocw_id: 25101514
+    patch_ojvm_id: 24917972
+    patch_acfs_id: 24828643
+    patch_dbwlm_id: 21436941
+    patch_dir: 24917987
+    file: p24917987_121020_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 12.1.0.2.170117 DB PSU + DB BP 12.1.0.2.170117"
+
+  #""" 12.1.0.1 """
+  23615355:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 23054354
+    patch_ocw_id:
+    patch_ojvm_id: 23177541
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 23615355
+    file: p23615355_121010_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 12.1.0.1.160719 DBPSU + DBPSU 12.1.0.1.160719 (JUL2016)"
+
+  #""" 11.2.0.4 """
+
+  28980134:
+    patch_proactive_bp_id:
+    patch_gi_id: 28813878
+    patch_db_id: 28729262
+    patch_ocw_id: 28729234
+    patch_ojvm_id: 28790660
+    patch_acfs_id: 28729245
+    patch_dbwlm_id:
+    patch_dir: 28980134
+    file: p28980134_112040_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo OJVM PSU 11.2.0.4.190115 and GI PSU 11.2.0.4.190115"
+    
+  26031209:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 25869727
+    patch_ocw_id:
+    patch_ojvm_id: 26027154
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 26031209
+    file: p26031209_112040_Linux-x86-64.zip
+    only_oh: False
+    desc: "Combo of OJVM Component 11.2.0.4.170718 DB PSU + DB PSU 11.2.0.4.170718"
+
+  25440428:
+    patch_proactive_bp_id:
+    patch_gi_id:
+    patch_db_id: 24732075
+    patch_ocw_id:
+    patch_ojvm_id: 25434033
+    patch_acfs_id:
+    patch_dbwlm_id:
+    patch_dir: 25440428
+    file: p25440428_112040_Linux-x86-64.zip
+    only_oh: False
+    desc: "COMBO OF OJVM COMPONENT 11.2.0.4.170418 DBPSU + DBPSU 11.2.0.4.170418"
+
+  26030799:
+    patch_proactive_bp_id:
+    patch_gi_id: 26030799
+    patch_db_id: 25869727
+    patch_ocw_id: 25920335
+    patch_ojvm_id:
+    patch_acfs_id: 22502505
+    patch_dbwlm_id:
+    patch_dir: 26030799
+    file: p26030799_112040_Linux-x86-64.zip
+    only_oh: False
+    desc: "GI PSU 11.2.0.4.170718"

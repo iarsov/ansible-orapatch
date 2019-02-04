@@ -1,0 +1,20 @@
+---
+
+   - name: Patch oracle software
+     #no_log: True
+     serial: 1
+     vars_prompt:
+       - name: "root_password"
+         prompt: "\n-->[Applicable if you patch Grid Infrastructure]<--\nEnter root password (press enter to skip)"
+         private: yes
+       - name: "root_password_confirm"
+         prompt: "Enter root password again (press enter to skip)"
+         private: yes
+     pre_tasks:
+       - assert:
+           that: root_password == root_password_confirm
+           msg: "Root password missmatch."
+     hosts: database
+     user: oracle
+     roles:
+       - orapatch

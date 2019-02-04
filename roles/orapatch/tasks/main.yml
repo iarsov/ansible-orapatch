@@ -1,0 +1,121 @@
+---
+  #
+  #    @author: Ivica Arsov
+  #    @contact: https://blog.iarsov.com/contact
+  #
+
+  - block:
+        # MANDATORY
+        #=====================================
+        - name: "[SYSTEM] Include vars"
+          include_vars:
+            dir: vars
+
+        - name: "[SYSTEM] Push sql scripts"
+          copy:
+            src: "{{ role_path }}/files/get_db_metadata.sql"
+            dest: "/tmp/orapatch_scripts/"
+
+        - name: "[SYSTEM] Ensure 'orapatch' log file exists"
+          copy:
+            content: ""
+            dest: "{{ orapatch_logfile }}"
+            force: no
+            mode: 0666
+
+        - name: "[SYSTEM] Start logger session"
+          orapatch:
+            function: START_LOGGER_SESSION
+          no_log: True
+        #=====================================
+        - name: Backup oracle home
+          shell: "tar -pcvkf {{ backup_loc }}/backup_oh{{ item.0 }}.tar {{ item.1.oracle_home_path }} > {{ backup_loc }}/backup_oh{{ item.0 }}.log"
+          become_user: "{{ backup_user }}"
+          become: true
+          become_method: su
+          with_indexed_items:
+            - "{{ ora_home_list }}"
+          when: item.1.backup_oh
+
+        - name: "Check OPatch minimum version"
+          orapatch:
+            item: "{{ item }}"
+            function: CHECK_OPATCH_MIN_VERSION
+          become_user: "{{ item.oracle_owner }}"
+          become: true
+          with_items:
+            - "{{ ora_home_list }}"
+          register: reg_check_opatch_min_version
+          when: not item.skip and (reg_check_opatch_min_version is not defined or "[orapatch] module fail" not in reg_check_opatch_min_version.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+
+        - name: "Check conflicts against OH"
+          orapatch:
+            item: "{{ item }}"
+            function: CHECK_CONFLICT_AGAINST_OH
+          become_user: "{{ item.oracle_owner }}"
+          become: true
+          with_items:
+            - "{{ ora_home_list }}"
+          register: reg_check_conflict_against_oh
+          when: not item.skip and (reg_check_conflict_against_oh is not defined or "[orapatch] module fail" not in reg_check_conflict_against_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+
+        - name: "Patch OH"
+          orapatch:
+            item: "{{ item }}"
+            function: PATCH_OH
+          become_user: "{{ item.oracle_owner }}"
+          become: true
+          with_items:
+            - "{{ ora_home_list }}"
+          register: reg_patch_oh
+          when: not patch_only_db_dict and not item.skip and not item.run_only_checks and (reg_patch_oh is not defined or "[orapatch] module fail" not in reg_patch_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+
+        - name: "Patch DB"
+          orapatch:
+            item: "{{ item }}"
+            function: PATCH_DB
+          become_user: "{{ item.oracle_owner }}"
+          become: true
+          with_items:
+            - "{{ ora_home_list }}"
+          register: reg_patch_db
+          when: not item.patch_only_oh and not item.skip and not item.run_only_checks and (reg_patch_db is not defined or "[orapatch] module fail" not in reg_patch_db.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+
+        - name: "Patch OH OJVM"
+          orapatch:
+            item: "{{ item }}"
+            function: PATCH_OH_OJVM
+          become_user: "{{ item.oracle_owner }}"
+          become: true
+          with_items:
+            - "{{ ora_home_list }}"
+          register: reg_patch_oh_ojvm
+          when: not patch_only_db_dict and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_oh_ojvm is not defined or "[orapatch] module fail" not in reg_patch_oh_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+
+        - name: "Patch DB OJVM"
+          orapatch:
+            item: "{{ item }}"
+            function: PATCH_DB_OJVM
+          become_user: "{{ item.oracle_owner }}"
+          become: true
+          with_items:
+            - "{{ ora_home_list }}"
+          register: reg_patch_db_ojvm
+          when: not item.patch_only_oh and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_db_ojvm is not defined or "[orapatch] module fail" not in reg_patch_db_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+
+    always:
+        - name: "[SYSTEM] End logger session"
+          orapatch:
+            function: END_LOGGER_SESSION
+          no_log: True
+
+        - name: "[SYSTEM] Fetch orapatch logfile"
+          fetch:
+            fail_on_missing: yes
+            flat: yes
+            src: "{{ orapatch_logfile }}"
+            dest: "/tmp/orapatch-{{ inventory_hostname }}/"
+
+
+
+#

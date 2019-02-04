@@ -1,0 +1,18 @@
+
+  #
+  # List of oracle homes and databases to patch.
+  #
+  ora_home_list:
+    - oracle_owner: 
+      oracle_home_path: 
+      oratab_file: 
+      run_only_checks: 
+      debug: False
+      patch_id:  # Patch ID must be defined in "vars/patch_dictionary/patch_dict.yml"
+      patch_only_oh: False
+      patch_ojvm: True
+      patch_db_all: True
+      patch_db_list: "" # Comma separated list of db_unique_names
+      host:
+      backup_oh: False # Indicator whether to backup oracle home
+      skip: False

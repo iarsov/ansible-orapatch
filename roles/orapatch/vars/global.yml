@@ -1,0 +1,15 @@
+---
+  # Location where the module logs its activities on target machine.
+  orapatch_logfile: "/tmp/orapatch_alert.log"
+
+  oratab_file: "/etc/oratab"
+
+  swlib_path:
+
+  # Additional options
+  debug: False # If set to TRUE it will enable 'debug' mode. Overrides DB level debug mode.
+  patch_only_db_dict: False # If set to TRUE it will patch only DB data dictionary.
+
+  run_oh_backup_only: False # If set to TRUE it will run only "Backup oracle home" task.
+  backup_loc: "" # Location where to backup oracle home.
+  backup_user:  # With what user to execute the backup. Ownership/privileges are preserved during backup.
