@@ -1,7 +1,5 @@
 # ansible-orapatch
 Automation for Oracle software binaries patching
-# ansible-orapatch
-Ansible Module For Oracle Patching
 
 # Synopsis
 
