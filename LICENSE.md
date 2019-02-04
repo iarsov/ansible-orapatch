@@ -1,5 +1,5 @@
 # ansible-orapatch
-Ansible Module For Oracle Patching
+Ansible module and playbook for automated Oracle patching
 
 # License
 

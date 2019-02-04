@@ -1,5 +1,5 @@
 # ansible-orapatch
-Automation for Oracle software binaries patching
+Ansible module and playbook for automated Oracle patching
 
 # Synopsis
 
