@@ -56,6 +56,8 @@
           become: true
           with_items:
             - "{{ ora_home_list }}"
+          environment:
+            TWO_TASK: ""
           register: reg_check_conflict_against_oh
           when: not item.skip and (reg_check_conflict_against_oh is not defined or "[orapatch] module fail" not in reg_check_conflict_against_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
 
@@ -67,6 +69,8 @@
           become: true
           with_items:
             - "{{ ora_home_list }}"
+          environment:
+            TWO_TASK: ""
           register: reg_patch_oh
           when: not patch_only_db_dict and not item.skip and not item.run_only_checks and (reg_patch_oh is not defined or "[orapatch] module fail" not in reg_patch_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
 
@@ -78,6 +82,8 @@
           become: true
           with_items:
             - "{{ ora_home_list }}"
+          environment:
+            TWO_TASK: ""
           register: reg_patch_db
           when: not item.patch_only_oh and not item.skip and not item.run_only_checks and (reg_patch_db is not defined or "[orapatch] module fail" not in reg_patch_db.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
 
@@ -89,6 +95,8 @@
           become: true
           with_items:
             - "{{ ora_home_list }}"
+          environment:
+            TWO_TASK: ""
           register: reg_patch_oh_ojvm
           when: not patch_only_db_dict and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_oh_ojvm is not defined or "[orapatch] module fail" not in reg_patch_oh_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
 
