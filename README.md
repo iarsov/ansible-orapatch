@@ -9,13 +9,13 @@ Contact: https://blog.iarsov.com/contact
 Last module version: 1.4.1<br/>
 Last update: 04.02.2019
 
-The main purpose of the module is to automate the patching process of Oracle database and grid infrastructure binaries with PSUs, BPs, RUs patches released by Oracle.<br/>
+The main purpose of the module is to automate the patching process of Oracle database and grid infrastructure binaries with PSUs, BPs and RUs released by Oracle.<br/>
 <br/>
 One-off patches: It won't work with one-off patches as it's not designed for that. Though, it that can be extended to support one-off patches.<br/>
 <br/>
 The module will use opatchauto if the Oracle home being patched is grid infrastructure, otherwise it will use standard opatch steps.<br/>
 <br/>
-The patching is customizable via role's variables definition. For example, you can run just prerequisites without applying patch or patch binaries without database dictionary changes or skip the OJVM patch etc.<br/>
+The patching is customizable via role's variables definition. For example, you can run just prerequisites without applying the patch, patch binaries without database dictionary changes, skip the OJVM patch etc.<br/>
 <br/>
 The module supports 11g, 12c and 18c database versions. It should work properly on 10g as well, but I haven't tested it.<br/>
 <br/>
@@ -68,7 +68,7 @@ Opatch has support for "resume" functionality. That's something I can take a loo
 
 During the whole process, all steps and output are logged in a log file on the target machines.<br/>
 Currently, there are two logging modes, standard (default) and debug. You switch between the modes with True/False value for the debug variable. In debug mode, more descriptive output is written in the log file.<br/>
-As an example, if you run OJVM patching with debug mode for 11g you would see whole output of the post install SQL script that's executed.<br/>
+As an example, if you run OJVM patching with debug mode for 11g you would see the entire output of the post install SQL script that's executed.<br/>
 <br/>
 At the end of the patching the log file is copied over to the control machine from where the patching started. So, if you patch multiple nodes you will get all log files.<br/>
 <br/>
@@ -76,7 +76,7 @@ The module by default will prompt for the user to provide root password. It is n
 
 # Real Application Clusters
 
-The module supports Real Application Clusters (RAC). All you need to do is specify group of hosts.<br/>
+The module supports Real Application Clusters (RAC). All you need to do is specify a group of hosts.<br/>
 There is one tricky moment with clusters. When a node patching is complete, when the CRS is started, the operation is asynchronous, meaning the module will get OK state when it executes crsctl start crs command. At that point from module perspective CRS is up and running. That's why I have implemented a check on every 10 seconds with a timeout of 10 minutes where the CRS is checked if all services are online prior to continue to patch other nodes.
 
 # Patch metadata format:
