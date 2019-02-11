@@ -15,7 +15,7 @@ patch_dict:
     patch_ojvm_id: 
     patch_acfs_id: 
     patch_dbwlm_id: 
-    patch_dir: p28822489_180000_Linux-x86-64
+    patch_dir: 28822489
     file: p28822489_180000_Linux-x86-64.zip
     only_oh: False
     desc: "Database Release Update 18.5.0"
