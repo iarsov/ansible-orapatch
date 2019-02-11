@@ -40,6 +40,10 @@ Note: If an error is encountered and you restart the process, the module will no
 Opatch has support for "resume" functionality. That's something I can take a look to implement into the module. As of now there is no such option.<br/>
 <br/>
 
+# Required packages
+
+For this module to work "pexpect" package needs to be installed on the target machine. This is required because in some (most) cases OPatch will (prompt) ask questions. The module uses "pexpect" to fill the answers. If required package is missing the module will fail with a message: module fail: Required "pexpect" (RPM) library not found.
+
 # Step-by-step guide
 
 1. Define the individual hosts or group of hosts in "inventory/hosts" under group [database]
