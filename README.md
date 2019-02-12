@@ -6,7 +6,7 @@ Ansible module and playbook for automated Oracle patching
 Author: Ivica Arsov<br/>
 Contact: https://blog.iarsov.com/contact
 
-Last module version: 1.4.1<br/>
+Last module version: 1.4.2<br/>
 Last update: 04.02.2019
 
 The main purpose of the module is to automate the patching process of Oracle database and grid infrastructure binaries with PSUs, BPs and RUs released by Oracle.<br/>
