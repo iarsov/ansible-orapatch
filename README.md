@@ -48,7 +48,7 @@ For this module to work "pexpect" package needs to be installed on the target ma
 
 1. Define the individual hosts or group of hosts in "inventory/hosts" under group [database]
 
-2. Define the location where patch binaries are extracted with "swlib_path" variable in "roles/common/defaults/main.yml"<br/>
+2. Define the location where patch binaries are extracted with "swlib_path" variable in "roles/orapatch/vars/global.yml"<br/>
    The "swlib_path" location needs to be accessible from the target machine.
 
 3. Define the list of oracle homes to be patched in "roles/orapatch/vars/main.yml"<br/>
