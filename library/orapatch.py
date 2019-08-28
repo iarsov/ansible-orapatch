@@ -46,7 +46,7 @@ from ansible.module_utils.basic import AnsibleModule
 
 # Define global variables
 g_supported_version_old = [10,11]
-g_supported_version_new = [12,18]
+g_supported_version_new = [12,18,19]
 g_function = "CHECK_OPATCH_MIN_VERSION"
 g_file_oratab = "/etc/oratab"
 g_sw_opatch_check_conflict_pattern = "Prereq \"checkConflictAgainstOHWithDetail\" passed"
