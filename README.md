@@ -6,8 +6,8 @@ Ansible module and playbook for automated Oracle patching
 Author: Ivica Arsov<br/>
 Contact: https://blog.iarsov.com/contact
 
-Last module version: 1.4.2<br/>
-Last update: 04.02.2019
+Last module version: 1.4.3<br/>
+Last update: 03.11.2019
 
 The main purpose of the module is to automate the patching process of Oracle database and grid infrastructure binaries with PSUs, BPs and RUs released by Oracle.<br/>
 <br/>
@@ -17,7 +17,7 @@ The module will use opatchauto if the Oracle home being patched is grid infrastr
 <br/>
 The patching is customizable via role's variables definition. For example, you can run just prerequisites without applying the patch, patch binaries without database dictionary changes, skip the OJVM patch etc.<br/>
 <br/>
-The module supports 11g, 12c and 18c database versions. It should work properly on 10g as well, but I haven't tested it.<br/>
+The module supports 11g, 12c, 18c and 19c database versions. It should work properly on 10g as well, but I haven't tested it.<br/>
 <br/>
 Expected actions performed by the module:<br/>
 <br/>
