@@ -5,10 +5,10 @@
     @author: Ivica Arsov
     @contact: https://blog.iarsov.com/contact
 
-    @last_update: 04.02.2019
+    @last_update: 03.11.2019
 
     File name:          orapatch.py
-    Version:            1.4.2
+    Version:            1.4.3
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
