@@ -4,10 +4,10 @@
     @author: Ivica Arsov
     @contact: https://blog.iarsov.com/contact
 
-    @last_update: 04.02.2019
+    @last_update: 23.12.2019
 
     File name:          orapatch.py
-    Version:            1.4.2
+    Version:            2.0
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -23,6 +23,7 @@
                         4) You may distribute this script INTERNALLY in your company, for internal use only,
                         for example when building a standard DBA toolset to be deployed to all
                         servers or DBA workstations
+    Python version:     3.x
 
 """
 
@@ -103,7 +104,7 @@ class ActionModule(ActionBase):
                 patch_item["patch_id"] = patch_id
                 args["patch_item"] = patch_item
 
-            except Exception,e:
+            except Exception as e:
 
                 result['failed'] = True
                 result['msg'] = "Patch '" + str (patch_id) + "'not found!"

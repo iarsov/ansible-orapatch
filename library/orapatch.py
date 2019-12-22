@@ -5,10 +5,10 @@
     @author: Ivica Arsov
     @contact: https://blog.iarsov.com/contact
 
-    @last_update: 03.11.2019
+    @last_update: 23.12.2019
 
     File name:          orapatch.py
-    Version:            1.4.3
+    Version:            2.0
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -24,6 +24,7 @@
                         4) You may distribute this script INTERNALLY in your company, for internal use only,
                         for example when building a standard DBA toolset to be deployed to all
                         servers or DBA workstations
+    Python version:     3.x
 
 """
 
@@ -69,10 +70,10 @@ g_listener_list = {}
 g_patch_applied = False
 g_debug = False
 g_hostname = None
-g_expected_list = { 'Do you want to proceed\? \[y\|n\]'.decode(): 'y\r'.decode(),
-                'Email address/User Name:'.decode(): '\r'.decode(),
-                'Do you wish to remain uninformed of security issues \(\[Y\]es, \[N\]o\) \[N\]'.decode(): 'y\r'.decode(),
-                'Is the local system ready for patching\? \[y\|n\]'.decode(): 'y\r'.decode() }
+g_expected_list = { 'Do you want to proceed\? \[y\|n\]': 'y\r',
+                'Email address/User Name:': '\r',
+                'Do you wish to remain uninformed of security issues \(\[Y\]es, \[N\]o\) \[N\]': 'y\r',
+                'Is the local system ready for patching\? \[y\|n\]': 'y\r' }
 g_logger_file = ""
 g_ocmrf_file = "/tmp/orapatch_ocm_" + time.strftime("%Y-%m-%d_%I-%M-%S%p")+".rsp"
 g_inventory_file = ""
@@ -618,13 +619,13 @@ class PatchProcess(object):
             #try:
 
             # Prefer pexpect.run
-            v_output, v_error = pexpect.run(p_command.decode(), timeout = timeout, withexitstatus = True, events = g_expected_list)
+            v_output, v_error = pexpect.run(p_command, timeout = timeout, withexitstatus = True, events = g_expected_list)
 
             #except TypeError:
 
             #    try:
             #
-            #        v_output, v_error = pexpect.runu(p_command.decode(), timeout = timeout, withexitstatus = True, events = g_expected_list)
+            #        v_output, v_error = pexpect.runu(p_command, timeout = timeout, withexitstatus = True, events = g_expected_list)
             #
             #    except:
             #        raise
@@ -632,6 +633,9 @@ class PatchProcess(object):
 
             process = subprocess.Popen(p_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
             v_output, v_error = process.communicate()
+        
+        v_output = v_output.decode('ascii').strip()
+        v_error = v_error.decode('ascii').strip()
 
         if g_debug:            
             logger("---------------------------", True)
@@ -650,7 +654,7 @@ class PatchProcess(object):
 
         else:
 
-            return str (v_output).strip()
+            return str (v_output)
 
     # @Description:
     #   Function to check OPatch required version
@@ -987,7 +991,7 @@ class PatchProcess(object):
 
             if g_root_password:
                 v_command = "su -c \"" + v_path + "\""
-                g_expected_list["Password: ".decode()] = g_root_password + "\r".decode()
+                g_expected_list["Password: "] = g_root_password + "\r"
                 v_output= self.run_os_command(v_command, p_expect = True)
             else:
                 v_command = "sudo " + v_path
@@ -1812,7 +1816,7 @@ class PatchProcess(object):
 
             g_patch_db_dict = False
             v_command = "su -c \"" + v_gi_home + "/bin/crsctl query crs activeversion -f\""
-            g_expected_list["Password: ".decode()] = g_root_password + "\r".decode()
+            g_expected_list["Password: "] = g_root_password + "\r"
             v_output= self.run_os_command(v_command, p_expect = True)
 
             if re.search(g_check_cluster_state,v_output):
@@ -2035,10 +2039,10 @@ def main():
 
         module.exit_json(changed = g_changed, msg = "Finished.")
 
-    except Exception, e:
-        logger(e.message)
+    except Exception as e:
+        logger(e)
         logger(e.__class__.__name__)
-        fail_module(traceback.print_exc(e))
+        fail_module(traceback.format_exc())
 
 if __name__ == '__main__':
 
