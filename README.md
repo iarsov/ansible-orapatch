@@ -10,7 +10,7 @@ Last module version: 2.0<br/>
 Last update: 23.12.2019
 
 # Python version
-As Python 2 support soon is coming to an end (end of 2019). I have reworked the library to work with Python 3
+As Python 2 support soon is coming to an end (end of 2019), the Orapatch library has been reworked for Python 3
 
 # General
 
