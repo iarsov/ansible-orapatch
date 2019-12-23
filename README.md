@@ -6,7 +6,7 @@ Ansible module and playbook for automated Oracle patching
 Author: Ivica Arsov<br/>
 Contact: https://blog.iarsov.com/contact
 
-Last module version: 2.0<br/>
+Last module version: 2.0.1<br/>
 Last update: 23.12.2019
 
 # Python version
