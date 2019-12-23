@@ -8,7 +8,7 @@
     @last_update: 23.12.2019
 
     File name:          orapatch.py
-    Version:            2.0
+    Version:            2.0.1
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -1483,19 +1483,24 @@ class PatchProcess(object):
                 else:
                     fail_module("Failed in determing whether database is registered in CRS.")
 
-                if self.patch_db_all:
-                    v_patch = True
-                elif self.patch_db_list:
-                    logger("db_unique_name list: " + str(self.patch_db_list))
-                    logger("Checking whether database ["+v_db_unique_name+"] exists in the user-defined list of databases.")
-                    if v_db_unique_name in self.patch_db_list:
-                        if v_db_is_standby:
-                            logger("Instance ["+v_db_unique_name+"] is found in the specified list, but it won't be patched because it's a standby.")
+
+                # Report which databases will be patched only if flag to patch only OH is set to False
+                if not self.patch_only_oh:
+                    if self.patch_db_all:
+                        v_patch = True
+                    elif self.patch_db_list:
+                        logger("db_unique_name list: " + str(self.patch_db_list))
+                        logger("Checking whether database ["+v_db_unique_name+"] exists in the user-defined list of databases.")
+                        if v_db_unique_name in self.patch_db_list:
+                            if v_db_is_standby:
+                                logger("Instance ["+v_db_unique_name+"] is found in the specified list, but it won't be patched because it's a standby.")
+                            else:
+                                v_patch = True
+                                logger("Instance ["+v_db_unique_name+"] is found in the specified list, will be patched.")
                         else:
-                            v_patch = True
-                            logger("Instance ["+v_db_unique_name+"] is found in the specified list, will be patched.")
-                    else:
-                        logger("Instance ["+v_db_unique_name+"] is not in the specified list.")
+                            logger("Instance ["+v_db_unique_name+"] is not in the specified list.")
+                else:
+                    v_patch = False
 
             logger("==========================", p_notime = True)
             logger("Database details:", p_notime = True)
@@ -2040,7 +2045,7 @@ def main():
         module.exit_json(changed = g_changed, msg = "Finished.")
 
     except Exception as e:
-        logger(e)
+        logger(str(e))
         logger(e.__class__.__name__)
         fail_module(traceback.format_exc())
 
