@@ -5,10 +5,10 @@
     @author: Ivica Arsov
     @contact: https://blog.iarsov.com/contact
 
-    @last_update: 23.12.2019
+    @last_update: 03.08.2020
 
     File name:          orapatch.py
-    Version:            2.0.1
+    Version:            2.0.2
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -635,7 +635,12 @@ class PatchProcess(object):
             v_output, v_error = process.communicate()
         
         v_output = v_output.decode('ascii').strip()
-        v_error = v_error.decode('ascii').strip()
+        
+        try:
+            v_error = v_error.decode('ascii').strip()
+        except AttributeError:
+            # if "v_error" returns 0
+            pass
 
         if g_debug:            
             logger("---------------------------", True)
@@ -789,6 +794,8 @@ class PatchProcess(object):
     #
     def patch_oh(self):
 
+        self.set_env(self.oracle_home)
+        
         # start: "if self.is_crs"
         if self.is_crs:
 
@@ -1296,7 +1303,7 @@ class PatchProcess(object):
 
             # Get 1st key from "v_oratab_asm_sid_match"
             #   - since it's GI, we're assuming only one ASM per GI.
-            v_asm_sid = v_oratab_asm_sid_match.keys()[0]
+            v_asm_sid = list(v_oratab_asm_sid_match.keys())[0]
 
             # Check if ASM is running
             v_command = "ps -ef | grep -iw [a]sm_pmon_" + v_asm_sid + " | wc -l"
