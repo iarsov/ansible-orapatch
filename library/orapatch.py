@@ -8,7 +8,7 @@
     @last_update: 03.08.2020
 
     File name:          orapatch.py
-    Version:            2.0.2
+    Version:            2.0.3
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -803,7 +803,7 @@ class PatchProcess(object):
 
             v_sleep_time = 10; # seconds
             v_sleep_timeout = 600; # minutes
-            v_sleep_time_cnt = 0;
+            v_sleep_time_cnt = 0
 
             v_command = "$ORACLE_HOME/bin/crsctl check has | grep -v \"is online$\" | wc -l"
             v_stack_label = "CRS"
@@ -819,7 +819,7 @@ class PatchProcess(object):
 
                 if (v_not_online_items == 0):
                     logger(v_stack_label + " is online, continue...")
-                    break;
+                    break
 
                 if (v_sleep_time_cnt >= v_sleep_timeout):
                     logger("Timeout: " + v_stack_label + " did not start within given 10 minutes period")
@@ -1601,23 +1601,25 @@ class PatchProcess(object):
 
         if p_asm:
 
-            if self.oh_version in g_supported_version_new:
+            logger("Skip ASM stop as opatchauto takes care")
 
-                v_argument_append = ""
+            # if self.oh_version in g_supported_version_new:
 
-                if self.is_cluster:
-                    v_argument_append = "-node " + p_db_obj.hostname
+            #     v_argument_append = ""
 
-                v_command = "$ORACLE_HOME/bin/srvctl stop asm -force -stopoption " + p_mode + " " + v_argument_append
+            #     if self.is_cluster:
+            #         v_argument_append = "-node " + p_db_obj.hostname
 
-            elif self.oh_version in g_supported_version_old:
+            #     v_command = "$ORACLE_HOME/bin/srvctl stop asm -force -stopoption " + p_mode + " " + v_argument_append
 
-                v_argument_append = ""
+            # elif self.oh_version in g_supported_version_old:
 
-                if self.is_cluster:
-                    v_argument_append = "-n " + p_db_obj.hostname
+            #     v_argument_append = ""
 
-                v_command = "$ORACLE_HOME/bin/srvctl stop asm -f -o " + p_mode + " " + v_argument_append
+            #     if self.is_cluster:
+            #         v_argument_append = "-n " + p_db_obj.hostname
+
+            #     v_command = "$ORACLE_HOME/bin/srvctl stop asm -f -o " + p_mode + " " + v_argument_append
 
         else:
 
@@ -1639,9 +1641,9 @@ class PatchProcess(object):
                 else:
                     v_command = "export ORACLE_SID=" + p_db_obj.sid + "; $ORACLE_HOME/bin/sqlplus -s / as sysdba <<< \"shutdown " + p_mode + "\""
 
-        logger("Stop instance: " + p_db_obj.sid)
+            logger("Stop instance: " + p_db_obj.sid)
 
-        return self.run_os_command(v_command)
+            return self.run_os_command(v_command)
 
     # @Description:
     #   Function to stop a listener
@@ -1675,19 +1677,20 @@ class PatchProcess(object):
 
         if p_asm:
 
-            v_argument_append = ""
+            logger("Skip ASM start as opatchauto takes care")
+            # v_argument_append = ""
 
-            if self.is_cluster:
+            # if self.is_cluster:
 
-                if self.oh_version in g_supported_version_new:
+            #     if self.oh_version in g_supported_version_new:
 
-                    v_argument_append = "-node " + p_db_obj.hostname
+            #         v_argument_append = "-node " + p_db_obj.hostname
 
-                elif self.oh_version in g_supported_version_old:
+            #     elif self.oh_version in g_supported_version_old:
 
-                    v_argument_append = "-n " + p_db_obj.hostname
+            #         v_argument_append = "-n " + p_db_obj.hostname
 
-            v_command = "$ORACLE_HOME/bin/srvctl start asm " + v_argument_append
+            # v_command = "$ORACLE_HOME/bin/srvctl start asm " + v_argument_append
 
         else:
 
@@ -1709,9 +1712,9 @@ class PatchProcess(object):
                 else:
                     v_command = "export ORACLE_SID=" + p_db_obj.sid + "; $ORACLE_HOME/bin/sqlplus -s / as sysdba <<< \"startup " + p_mode + "\""
 
-        logger("Starting instance: " + p_db_obj.sid)
+            logger("Starting instance: " + p_db_obj.sid)
 
-        return self.run_os_command(v_command)
+            return self.run_os_command(v_command)
 
     # @Description:
     #   Function to start listener
@@ -1741,10 +1744,10 @@ class PatchProcess(object):
     #
     def check_running_services_from_oh(self):
 
-        # if self.is_crs:
-        #     logger("This is CRS configuration, opatchauto takes care.")
-        #     logger("Skipping CHECK_RUNNING_SERVICES_FROM_OH.")
-        #     return
+        if self.is_crs:
+            logger("This is CRS configuration, opatchauto takes care.")
+            logger("Skip CHECK_RUNNING_SERVICES_FROM_OH.")
+            return
 
         global g_instance_list
 
@@ -1859,7 +1862,7 @@ class PatchProcess(object):
             logger("==============================================",True)
             logger(g_function + " => CHECK_RUNNING_SERVICES_FROM_OH",True)
             logger("==============================================",True)
-            self.check_running_services_from_oh();
+            self.check_running_services_from_oh()
 
 
     def patchprocess_post_patch(self):
