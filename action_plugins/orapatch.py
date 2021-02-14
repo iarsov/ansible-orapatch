@@ -4,10 +4,10 @@
     @author: Ivica Arsov
     @contact: https://blog.iarsov.com/contact
 
-    @last_update: 23.12.2019
+    @last_update: 14.02.2021
 
     File name:          orapatch.py
-    Version:            2.0
+    Version:            2.0.1
     Purpose:            Automation for Oracle software binaries patching
     Author:             Ivica Arsov (ivica@iarsov.com)
     Copyright:          (c) Ivica Arsov - https://blog.iarsov.com - All rights reserved.
@@ -100,7 +100,7 @@ class ActionModule(ActionBase):
 
             try:
 
-                patch_item = patch_dict[patch_id]
+                patch_item = patch_dict[int(patch_id)]
                 patch_item["patch_id"] = patch_id
                 args["patch_item"] = patch_item
 
