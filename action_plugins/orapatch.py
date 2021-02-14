@@ -94,13 +94,14 @@ class ActionModule(ActionBase):
                 args["oratab_file"] = db_item["oratab_file"]
             else:
                 args["oratab_file"] = task_vars["oratab_file"]
-
-            patch_id = db_item["patch_id"]
-            patch_dict = task_vars["patch_dict"]
-
+                
+                
             try:
+                
+                patch_id = int(db_item["patch_id"])
+                patch_dict = task_vars["patch_dict"]
 
-                patch_item = patch_dict[int(patch_id)]
+                patch_item = patch_dict[patch_id]
                 patch_item["patch_id"] = patch_id
                 args["patch_item"] = patch_item
 
