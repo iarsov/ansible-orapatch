@@ -46,7 +46,7 @@
           with_items:
             - "{{ ora_home_list }}"
           register: reg_check_opatch_min_version
-          when: not item.skip and (reg_check_opatch_min_version is not defined or "[orapatch] module fail" not in reg_check_opatch_min_version.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+          when: not item.skip and (reg_check_opatch_min_version is not defined or "[orapatch] module fail" not in reg_check_opatch_min_version.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only and not item.build_client_only
 
         - name: "Check conflicts against OH"
           orapatch:
@@ -59,7 +59,7 @@
           environment:
             TWO_TASK: ""
           register: reg_check_conflict_against_oh
-          when: not item.skip and (reg_check_conflict_against_oh is not defined or "[orapatch] module fail" not in reg_check_conflict_against_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+          when: not item.skip and (reg_check_conflict_against_oh is not defined or "[orapatch] module fail" not in reg_check_conflict_against_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only and not item.build_client_only
 
         - name: "Patch OH"
           orapatch:
@@ -72,7 +72,7 @@
           environment:
             TWO_TASK: ""
           register: reg_patch_oh
-          when: not patch_only_db_dict and not item.skip and not item.run_only_checks and (reg_patch_oh is not defined or "[orapatch] module fail" not in reg_patch_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+          when: not patch_only_db_dict and not item.skip and not item.run_only_checks and (reg_patch_oh is not defined or "[orapatch] module fail" not in reg_patch_oh.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only and not item.build_client_only
 
         - name: "Patch DB"
           orapatch:
@@ -85,7 +85,7 @@
           environment:
             TWO_TASK: ""
           register: reg_patch_db
-          when: not item.patch_only_oh and not item.skip and not item.run_only_checks and (reg_patch_db is not defined or "[orapatch] module fail" not in reg_patch_db.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+          when: not item.patch_only_oh and not item.skip and not item.run_only_checks and (reg_patch_db is not defined or "[orapatch] module fail" not in reg_patch_db.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only and not item.build_client_only
 
         - name: "Patch OH OJVM"
           orapatch:
@@ -98,7 +98,7 @@
           environment:
             TWO_TASK: ""
           register: reg_patch_oh_ojvm
-          when: not patch_only_db_dict and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_oh_ojvm is not defined or "[orapatch] module fail" not in reg_patch_oh_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+          when: not patch_only_db_dict and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_oh_ojvm is not defined or "[orapatch] module fail" not in reg_patch_oh_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only and not item.build_client_only
 
         - name: "Patch DB OJVM"
           orapatch:
@@ -109,7 +109,46 @@
           with_items:
             - "{{ ora_home_list }}"
           register: reg_patch_db_ojvm
-          when: not item.patch_only_oh and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_db_ojvm is not defined or "[orapatch] module fail" not in reg_patch_db_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only
+          when: not item.patch_only_oh and not item.skip and not item.run_only_checks and item.patch_ojvm and (reg_patch_db_ojvm is not defined or "[orapatch] module fail" not in reg_patch_db_ojvm.msg) and ((item.host is defined and ansible_hostname == item.host) or (item.host is not defined or not item.host)) and not run_oh_backup_only and not item.build_client_only
+
+        - name: Build instant client
+          vars:
+            client_path: 'rdbms/install/instantclient/light'
+
+          block:
+            - name: Remove directory
+              file:
+                path: '{{ item.oracle_home_path }}/{{ client_path }}'
+                state: absent
+              with_items:
+                - "{{ ora_home_list }}"
+
+            - name: Create directory
+              file:
+                path: '{{ item.oracle_home_path }}/{{ client_path }}'
+                state: directory
+                mode: '0755'
+                owner: "{{ item.oracle_owner }}"
+                group: "{{ item.oracle_owner }}"
+              with_items:
+                - "{{ ora_home_list }}"
+
+            - name: Build zip and RPM files
+              become_user: "{{ item.oracle_owner }}"
+              become: true
+              shell:
+                cmd: |
+                  make -f ins_rdbms.mk igenliboci
+                  make -f ins_rdbms.mk ic_all_zip
+                chdir: '{{ item.oracle_home_path }}/rdbms/lib'
+              environment:
+                ORACLE_HOME: '{{ item.oracle_home_path }}'
+                LD_LIBRARY_PATH: '{{ item.oracle_home_path }}/lib'
+              with_items:
+                - "{{ ora_home_list }}"
+          when: item.build_client
+          become: true
+          become_user: "{{ item.oracle_owner }}"
 
     always:
         - name: "[SYSTEM] End logger session"
