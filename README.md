@@ -6,8 +6,8 @@ Ansible module and playbook for automated Oracle patching
 Author: Ivica Arsov<br/>
 Contact: https://blog.iarsov.com/contact
 
-Last module version: 2.0.1<br/>
-Last update: 23.12.2019
+Last module version: 2.1.0<br/>
+Last update: 08.10.2023
 
 # Python version
 As Python 2 support soon is coming to an end (end of 2019), the Orapatch library has been reworked for Python 3
