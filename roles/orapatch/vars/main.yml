@@ -15,4 +15,6 @@
       patch_db_list: "" # Comma separated list of db_unique_names
       host:
       backup_oh: False # Indicator whether to backup oracle home
+      build_client: True # Build instant client
+      build_client_only: False
       skip: False

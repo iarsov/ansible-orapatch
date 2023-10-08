@@ -20,7 +20,7 @@ One-off patches: It won't work with one-off patches as it's not designed for tha
 <br/>
 The module will use opatchauto if the Oracle home being patched is grid infrastructure, otherwise it will use standard opatch steps.<br/>
 <br/>
-The patching is customizable via role's variables definition. For example, you can run just prerequisites without applying the patch, patch binaries without database dictionary changes, skip the OJVM patch etc.<br/>
+The patching is customizable via role's variables definition. For example, you can run just prerequisites without applying the patch, patch binaries without database dictionary changes, skip the OJVM patch, build instant client packages, etc.<br/>
 <br/>
 The module supports 11g, 12c, 18c and 19c database versions. It should work properly on 10g as well, but I haven't tested it.<br/>
 <br/>
@@ -128,6 +128,8 @@ ora_home_list:
     host: -> It allows the user to specify a mapping to specific host for which this list entry is valid. It's applicable only if the playbook is executed against group of hosts
     backup_oh: -> Indicator whether to backup oracle home binaries (True/False)
     skip: -> Main indicator whether to skip this item or not
+    build_client -> Indicator whether to build instant client packages and libraries
+    build_client_only -> Indicator to only build instant client packages and libraries
     debug: -> Enables debug mode (True/False)
 ```
 
